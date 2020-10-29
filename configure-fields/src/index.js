@@ -17,18 +17,15 @@ window.DatoCmsPlugin.init((plugin) => {
   const error = (...val) => (isDev ? console.error(...val) : undefined);
   const table = (...val) => (isDev ? console.table(...val) : undefined);
 
+  if (plugin.field.attributes.localized) error('this field-addon plugin cannot be added to a localized field!');
+
   const siteFields = plugin.fields;
-  const modelFields = plugin.itemType.relationships.fields.data;
-  const modelFieldKeys = modelFields.reduce((arr, { id }) => {
-    const fieldKey = siteFields[id].attributes.api_key;
-    if (fieldKey === plugin.field.attributes.api_key) return arr;
-    arr.push(fieldKey);
-    return arr;
-  }, []);
+  // NB: we're collecting fields for this model *other than the plugin field*
+  const modelFields = plugin.itemType.relationships.fields.data.filter(field => field.id !== plugin.field.id);
+  const modelFieldKeys = modelFields.map(({ id }) => siteFields[id].attributes.api_key);
   const modelFieldsByKey = modelFields.reduce((obj, { id }) => {
     const field = siteFields[id];
     const fieldKey = field.attributes.api_key;
-    if (fieldKey === plugin.field.attributes.api_key) return obj;
     obj[fieldKey] = field;
     return obj;
   }, {});
@@ -41,7 +38,7 @@ window.DatoCmsPlugin.init((plugin) => {
     const config = hidingConfigs[configName] || [];
     modelFieldKeys.forEach((apiKey) => {
       const isHidden = config.includes(apiKey);
-      log('toggling: ', apiKey, !isHidden);
+      log('toggling', apiKey, !isHidden);
       // compensate for parentFieldId
       const targetApiKey = plugin.parentFieldId
         ? `${plugin.fieldPath.replace(/.[^.]*$/, '')}.${apiKey}`
