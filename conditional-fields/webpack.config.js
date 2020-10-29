@@ -36,15 +36,15 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Translate plugin',
+      title: 'Conditional Fields Plugin',
       minify: isProduction,
     }),
     new HtmlWebpackTagsPlugin({
       append: false,
       publicPath: '',
       tags: [
-        'https://unpkg.com/datocms-plugins-sdk@0.0.9/dist/sdk.js',
-        'https://unpkg.com/datocms-plugins-sdk@0.0.9/dist/sdk.css',
+        'https://unpkg.com/datocms-plugins-sdk@0.0.10/dist/sdk.js',
+        'https://unpkg.com/datocms-plugins-sdk@0.0.10/dist/sdk.css',
       ],
     }),
   ].filter(Boolean),
