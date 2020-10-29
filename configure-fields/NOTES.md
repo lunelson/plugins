@@ -1,4 +1,10 @@
-Test settings
+## TODOs
+
+- if the field to which this add-on is applied is localized, throw an error: it should never be a localized field
+- update the /docs/ resources with new images/gifs/movies
+- ensure all the package metadata is correct
+
+## Test Settings
 
 ```json
 {
