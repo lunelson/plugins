@@ -17,12 +17,12 @@ module.exports = {
   },
   module: {
     rules: [
-      // {
-      //   test: /\.jsx?$/,
-      //   include: `${__dirname}/src`,
-      //   loader: 'eslint-loader',
-      //   enforce: 'pre',
-      // },
+      {
+        test: /\.jsx?$/,
+        include: `${__dirname}/src`,
+        loader: 'eslint-loader',
+        enforce: 'pre',
+      },
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
@@ -44,7 +44,6 @@ module.exports = {
       publicPath: '',
       tags: [
         'https://unpkg.com/datocms-plugins-sdk@0.0.10/dist/sdk.js',
-        'https://unpkg.com/datocms-plugins-sdk@0.0.10/dist/sdk.css',
       ],
     }),
   ].filter(Boolean),
